@@ -1,9 +1,14 @@
 package com.cognixia.jump.project3spring.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Burger extends Food implements Serializable{
@@ -16,8 +21,13 @@ public class Burger extends Food implements Serializable{
 	private enum Protein{Single,Double,Turkey,BlackBean};
 	private enum Buns{White,Wheat,Lettuce,GlutenFree};
 	
-	private List<Veggies> topping;
-	private List<Extras> extras;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "food_id")
+	private Long id;
+	
+	private ArrayList<Veggies> topping;
+	private ArrayList<Extras> extras;
 	private Cheese cheese; 
 	private Protein protein;
 	private Buns buns;
@@ -28,8 +38,10 @@ public class Burger extends Food implements Serializable{
 	
 	public Burger(List<Veggies> topping, List<Extras> extras, Cheese cheese, Protein protein, Buns buns) {
 		super();
-		this.topping = topping;
-		this.extras = extras;
+		this.topping= new ArrayList<Veggies> ();
+		this.topping = (ArrayList<Veggies>) topping;
+		this.extras = new ArrayList<Extras> ();
+		this.extras=(ArrayList<Extras>) extras;
 		this.cheese = cheese;
 		this.protein = protein;
 		this.buns = buns;
@@ -45,15 +57,15 @@ public class Burger extends Food implements Serializable{
 		return topping;
 	}
 
-	public void setTopping(List<Veggies> topping) {
-		this.topping = topping;
+	public void setTopping(ArrayList<Veggies> topping) {
+		this.topping =  topping;
 	}
 
 	public List<Extras> getExtras() {
 		return extras;
 	}
 
-	public void setExtras(List<Extras> extras) {
+	public void setExtras(ArrayList<Extras> extras) {
 		this.extras = extras;
 	}
 

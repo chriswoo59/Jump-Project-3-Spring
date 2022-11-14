@@ -3,9 +3,11 @@ package com.cognixia.jump.project3spring.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 public abstract class Food implements Serializable {
 
@@ -15,6 +17,7 @@ public abstract class Food implements Serializable {
 	@Column(name = "food_id")
 	private Long id;
 	@Column(nullable = false)
+	@OneToMany(mappedBy = "id", targetEntity = Orders.class, fetch= FetchType.EAGER)
 	private long oder_id;
 	
 	private double cost;
