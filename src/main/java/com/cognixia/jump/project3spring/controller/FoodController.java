@@ -22,17 +22,24 @@ import com.cognixia.jump.project3spring.model.Pizza;
 import com.cognixia.jump.project3spring.service.FoodService;
 
 @RestController
-@RequestMapping("/api/food")
+@RequestMapping("/api")
 public class FoodController {
 
 	@Autowired
 	FoodService service;
 	
-	@GetMapping
-	public ResponseEntity<?> getAllFood() {
-		List<Food> foods = service.getAllFood();
+	@GetMapping("/burgers")
+	public ResponseEntity<?> getAllBurgers() {
+		List<Burger> burgers = service.getAllBurgers();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(foods);
+		return ResponseEntity.status(HttpStatus.OK).body(burgers);
+	}
+	
+	@GetMapping("/pizza")
+	public ResponseEntity<?> getAllPizzas() {
+		List<Pizza> pizzas = service.getAllPizzas();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(pizzas);
 	}
 	
 	@PostMapping("/burger")
@@ -54,9 +61,16 @@ public class FoodController {
 //		
 //	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Long id) throws ResourceNotFoundException {
-		Food deleted = service.deleteFood(id);
+	@DeleteMapping("/burger/{id}")
+	public ResponseEntity<?> deleteBurgerById(@PathVariable Long id) throws ResourceNotFoundException {
+		Burger deleted = service.deleteBurger(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(deleted);
+	}
+	
+	@DeleteMapping("/pizza/{id}")
+	public ResponseEntity<?> deletePizzaById(@PathVariable Long id) throws ResourceNotFoundException {
+		Pizza deleted = service.deletePizza(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(deleted);
 	}
