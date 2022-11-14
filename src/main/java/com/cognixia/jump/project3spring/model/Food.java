@@ -3,9 +3,11 @@ package com.cognixia.jump.project3spring.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 public abstract class Food implements Serializable {
 
@@ -14,17 +16,15 @@ public abstract class Food implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "food_id")
 	private Long id;
-	@Column(nullable = false)
-	private long oder_id;
+	
 	
 	private double cost;
 	
 	private boolean done;
 
-	public Food(Long id, long oder_id, double cost, boolean done) {
+	public Food(Long id, double cost, boolean done) {
 		super();
 		this.id = id;
-		this.oder_id = oder_id;
 		this.cost = cost;
 		this.done = done;
 	}
@@ -35,7 +35,7 @@ public abstract class Food implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Food [id=" + id + ", oder_id=" + oder_id + ", cost=" + cost + ", done=" + done + "]";
+		return "Food [id=" + id + ", cost=" + cost + ", done=" + done + "]";
 	}
 
 	public Long getId() {
@@ -44,14 +44,6 @@ public abstract class Food implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public long getOder_id() {
-		return oder_id;
-	}
-
-	public void setOder_id(long oder_id) {
-		this.oder_id = oder_id;
 	}
 
 	public double getCost() {
