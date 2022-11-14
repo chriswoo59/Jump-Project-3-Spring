@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-public class burger extends food implements Serializable{
+public class Burger extends Food implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,11 @@ public class burger extends food implements Serializable{
 	private Protein protein;
 	private Buns buns;
 	
-	public burger() {
+	public Burger() {
 		super();
 	}
 	
-	public burger(List<Veggies> topping, List<Extras> extras, Cheese cheese, Protein protein, Buns buns) {
+	public Burger(List<Veggies> topping, List<Extras> extras, Cheese cheese, Protein protein, Buns buns) {
 		super();
 		this.topping = topping;
 		this.extras = extras;
