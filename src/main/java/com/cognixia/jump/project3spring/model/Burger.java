@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Burger extends Food implements Serializable{
@@ -25,6 +26,8 @@ public class Burger extends Food implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "food_id")
 	private Long id;
+	@ManyToOne
+	private Orders order;
 	
 	private ArrayList<Veggies> topping;
 	private ArrayList<Extras> extras;
