@@ -9,45 +9,51 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+import org.springframework.stereotype.Component;
+
+@Component
 public class Pizza extends Food {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "food_id")
 	private Long id;
 	@ManyToOne
 	private Orders order;
-	
-	
-	private enum Veggies{Onions,Tomato,Jalapeños,Mushrooms,Pinapple,Olives,GreenPeppers};
-	private enum Meats{Pepperoni,Sausage,Bacon,Meatball,Ham,Chicken,Beef,Pork};
-	private enum Crust{HandTossed,Pan,NewYork,DeepDish,StuffedCrust};
-	
-	private ArrayList<Veggies> veg = new ArrayList<>();
-	private ArrayList<Meats> meat= new ArrayList<>();
+
+	private enum Meats {
+		Pepperoni, Sausage, Bacon, Meatball, Ham, Chicken, Beef, Pork
+	};
+
+	private enum Crust {
+		HandTossed, Pan, NewYork, DeepDish, StuffedCrust
+	};
+
+	private ArrayList<Meats> meat = new ArrayList<>();
 	private Crust crust;
-	
-	public Pizza(Long id, double cost, boolean done, ArrayList<Veggies> veg, ArrayList<Meats> meat, Crust crust) {
-		super(id, cost, done);
-		this.veg = veg;
+
+	public Pizza(Long id, double cost, ArrayList<Veggies> veggies, Cheese cheese, ArrayList<Meats> meat, Crust crust) {
+		super(id, "Pizza", cost, veggies, cheese);
 		this.meat = meat;
 		this.crust = crust;
 	}
 
-	@Override
-	public String toString() {
-		return "Pizza [veg=" + veg + ", meat=" + meat + ", crust=" + crust + "]";
+	public Long getId() {
+		return id;
 	}
 
-	public ArrayList<Veggies> getVeg() {
-		return veg;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setVeg(ArrayList<Veggies> veg) {
-		this.veg = veg;
+	public Orders getOrder() {
+		return order;
+	}
+
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 
 	public ArrayList<Meats> getMeat() {
@@ -65,5 +71,10 @@ public class Pizza extends Food {
 	public void setCrust(Crust crust) {
 		this.crust = crust;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Pizza [id=" + id + ", order=" + order + ", meat=" + meat + ", crust=" + crust + "]";
+	}
+
 }
