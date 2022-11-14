@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-public class Order implements Serializable{
+
+
+@Entity
+public class Orders implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,14 +33,14 @@ public class Order implements Serializable{
 	@Column(nullable = false)
 	private int qty;
 	
-	public Order() {
+	public Orders() {
 		this.id = -1L;
 		this.order_date = new Date();
 		this.completed = false;
 		this.qty = 1;
 	}
 
-	public Order(Long id, Date order_date, boolean completed, int qty) {
+	public Orders(Long id, Date order_date, boolean completed, int qty) {
 		super();
 		this.id = id;
 		this.order_date = order_date;

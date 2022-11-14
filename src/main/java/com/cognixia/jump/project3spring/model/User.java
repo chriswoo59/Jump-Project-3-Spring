@@ -55,9 +55,9 @@ public class User implements Serializable {
 	@Column(columnDefinition = "boolean default true")
 	private boolean enabled;
 
-	@OneToMany(mappedBy = "user", targetEntity = Order.class, fetch= FetchType.EAGER)
-	@JsonIgnoreProperties("user")
-	private Set<Order> orders = new HashSet<>();
+	@OneToMany(mappedBy = "id", targetEntity = Orders.class, fetch= FetchType.EAGER)
+//	@JsonIgnoreProperties("user")
+	private Set<Orders> orders = new HashSet<>();
 
 	public User() {
 		this.id = -1L;
@@ -71,7 +71,7 @@ public class User implements Serializable {
 	}
 
 	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled,
-			Set<Order> orders) {
+			Set<Orders> orders) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -139,15 +139,15 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<Order> getOrders() {
+	public Set<Orders> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(Set<Orders> orders) {
 		this.orders = orders;
 	}
 	
-	public void addOrder(Order order) {
+	public void addOrder(Orders order) {
 		this.orders.add(order);
 	}
 
