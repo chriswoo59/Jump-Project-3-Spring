@@ -1,6 +1,8 @@
 package com.cognixia.jump.project3spring.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -16,26 +18,43 @@ public abstract class Food implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "food_id")
 	private Long id;
+		
+	@Column(nullable = false)
+	private String type;
 	
-	
+	@Column(nullable = false)
 	private double cost;
 	
-	private boolean done;
+	private enum Veggies{Lettuce,Onions,Tomato,Pickles,Jalapeños};
+	private enum Cheese{American,Blue,Cheddar,Swiss,PepperJack,RedDragon};
+	private enum Extras{Bacon,FriedEgg,Avocado};
+	
+	@Column
+	private List<Veggies> veggies;
+	@Column
+	private List<Extras> extras;
+	@Column
+	private Cheese cheese; 
+		
+	
 
-	public Food(Long id, double cost, boolean done) {
+	public Food(Long id, String type, double cost, ArrayList<Veggies> veggies, ArrayList<Extras> extras, Cheese cheese) {
 		super();
 		this.id = id;
+		this.type = type;
 		this.cost = cost;
-		this.done = done;
+		this.veggies = veggies;
+		this.extras = extras;
+		this.cheese = cheese;
 	}
 
 	public Food() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "Food [id=" + id + ", cost=" + cost + ", done=" + done + "]";
+		this.id = -1L;
+		this.type = "blank";
+		this.cost = 5.0;
+		this.veggies = new ArrayList<Veggies>();
+		this.extras = new ArrayList<Extras>();
+		this.cheese = null;
 	}
 
 	public Long getId() {
@@ -46,6 +65,14 @@ public abstract class Food implements Serializable {
 		this.id = id;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public double getCost() {
 		return cost;
 	}
@@ -54,12 +81,34 @@ public abstract class Food implements Serializable {
 		this.cost = cost;
 	}
 
-	public boolean isDone() {
-		return done;
+	public List<Veggies> getTopping() {
+		return veggies;
 	}
 
-	public void setDone(boolean done) {
-		this.done = done;
+	public void setTopping(List<Veggies> topping) {
+		this.veggies = topping;
+	}
+
+	public List<Extras> getExtras() {
+		return extras;
+	}
+
+	public void setExtras(List<Extras> extras) {
+		this.extras = extras;
+	}
+
+	public Cheese getCheese() {
+		return cheese;
+	}
+
+	public void setCheese(Cheese cheese) {
+		this.cheese = cheese;
+	}
+
+	@Override
+	public String toString() {
+		return "Food [id=" + id + ", type=" + type + ", cost=" + cost + ", veggies=" + veggies + ", extras=" + extras
+				+ ", cheese=" + cheese + "]";
 	}
 	
 	

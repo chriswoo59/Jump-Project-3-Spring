@@ -16,9 +16,6 @@ public class Burger extends Food implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private enum Veggies{Lettuce,Onions,Tomato,Pickles,Jalapeños};
-	private enum Cheese{American,Blue,Cheddar,Swiss,PepperJack,RedDragon};
-	private enum Extras{Bacon,FriedEgg,Avocado};
 	private enum Protein{Single,Double,Turkey,BlackBean};
 	private enum Buns{White,Wheat,Lettuce,GlutenFree};
 	
@@ -29,55 +26,21 @@ public class Burger extends Food implements Serializable{
 	@ManyToOne
 	private Orders order;
 	
-	private ArrayList<Veggies> topping;
-	private ArrayList<Extras> extras;
-	private Cheese cheese; 
+	@Column
 	private Protein protein;
+	@Column
 	private Buns buns;
 	
 	public Burger() {
 		super();
+		super.setType("Burger");
 	}
 	
-	public Burger(List<Veggies> topping, List<Extras> extras, Cheese cheese, Protein protein, Buns buns) {
+	public Burger(Protein protein, Buns buns) {
 		super();
-		this.topping= new ArrayList<Veggies> ();
-		this.topping = (ArrayList<Veggies>) topping;
-		this.extras = new ArrayList<Extras> ();
-		this.extras=(ArrayList<Extras>) extras;
-		this.cheese = cheese;
+		super.setType("Burger");
 		this.protein = protein;
 		this.buns = buns;
-	}
-	
-	@Override
-	public String toString() {
-		return "burger [topping=" + topping + ", extras=" + extras + ", cheese=" + cheese + ", protein=" + protein
-				+ ", buns=" + buns + "]";
-	}
-
-	public List<Veggies> getTopping() {
-		return topping;
-	}
-
-	public void setTopping(ArrayList<Veggies> topping) {
-		this.topping =  topping;
-	}
-
-	public List<Extras> getExtras() {
-		return extras;
-	}
-
-	public void setExtras(ArrayList<Extras> extras) {
-		this.extras = extras;
-	}
-
-	public Cheese getCheese() {
-		return cheese;
-	}
-
-	public void setCheese(Cheese cheese) {
-		this.cheese = cheese;
 	}
 
 	public Protein getProtein() {
@@ -95,6 +58,10 @@ public class Burger extends Food implements Serializable{
 	public void setBuns(Buns buns) {
 		this.buns = buns;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Burger [id=" + id + ", order=" + order + ", protein=" + protein + ", buns=" + buns + "]";
+	}
 	
 }
