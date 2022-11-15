@@ -1,11 +1,15 @@
 package com.cognixia.jump.project3spring.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 
 public abstract class Food implements Serializable {
 
@@ -14,26 +18,25 @@ public abstract class Food implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "food_id")
 	private Long id;
-	
-	
-	private double cost;
-	
-	private boolean done;
 
-	public Food(Long id, double cost, boolean done) {
+	@Column(nullable = false)
+	private String type;
+
+	@Column(nullable = false)
+	private double cost;
+
+
+	public Food(Long id, String type, double cost) {
 		super();
 		this.id = id;
+		this.type = type;
 		this.cost = cost;
-		this.done = done;
 	}
 
 	public Food() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "Food [id=" + id + ", cost=" + cost + ", done=" + done + "]";
+		this.id = -1L;
+		this.type = "blank";
+		this.cost = 5.0;
 	}
 
 	public Long getId() {
@@ -44,6 +47,14 @@ public abstract class Food implements Serializable {
 		this.id = id;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public double getCost() {
 		return cost;
 	}
@@ -52,13 +63,9 @@ public abstract class Food implements Serializable {
 		this.cost = cost;
 	}
 
-	public boolean isDone() {
-		return done;
+	@Override
+	public String toString() {
+		return "Food [id=" + id + ", type=" + type + ", cost=" + cost + "]";
 	}
 
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-	
-	
 }
