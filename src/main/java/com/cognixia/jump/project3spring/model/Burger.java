@@ -11,60 +11,75 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.stereotype.Component;
+
 @Entity
-public class Burger extends Food implements Serializable{
+public class Burger extends Food implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private enum Veggies{Lettuce,Onions,Tomato,Pickles,Jalapeños};
-	private enum Cheese{American,Blue,Cheddar,Swiss,PepperJack,RedDragon};
-	private enum Extras{Bacon,FriedEgg,Avocado};
-	private enum Protein{Single,Double,Turkey,BlackBean};
-	private enum Buns{White,Wheat,Lettuce,GlutenFree};
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "food_id")
 	private Long id;
+
+	private enum Veggies {
+		Lettuce, Onions, Tomato, Pickles, Jalapeños
+	};
+
+	private enum Cheese {
+		American, Blue, Cheddar, Swiss, PepperJack, RedDragon
+	};
+
+	private enum Extras {
+		Bacon, FriedEgg, Avocado
+	};
+
+	private enum Protein {
+		Single, Double, Turkey, BlackBean
+	};
+
+	private enum Buns {
+		White, Wheat, Lettuce, GlutenFree
+	};
+
 	@ManyToOne
 	private Orders order;
-	
-	private ArrayList<Veggies> topping;
+
+	private ArrayList<Veggies> veggies;
 	private ArrayList<Extras> extras;
-	private Cheese cheese; 
+	private Cheese cheese;
 	private Protein protein;
 	private Buns buns;
-	
-	public Burger() {
-		super();
-	}
-	
-	public Burger(List<Veggies> topping, List<Extras> extras, Cheese cheese, Protein protein, Buns buns) {
-		super();
-		this.topping= new ArrayList<Veggies> ();
-		this.topping = (ArrayList<Veggies>) topping;
-		this.extras = new ArrayList<Extras> ();
-		this.extras=(ArrayList<Extras>) extras;
+
+	public Burger(Long id, String type, double cost, Orders order, ArrayList<Veggies> veggies, ArrayList<Extras> extras,
+			Cheese cheese, Protein protein, Buns buns) {
+		super(id, type, cost);
+		this.order = order;
+		this.veggies = veggies;
+		this.extras = extras;
 		this.cheese = cheese;
 		this.protein = protein;
 		this.buns = buns;
 	}
-	
-	@Override
-	public String toString() {
-		return "burger [topping=" + topping + ", extras=" + extras + ", cheese=" + cheese + ", protein=" + protein
-				+ ", buns=" + buns + "]";
+
+	public Orders getOrder() {
+		return order;
 	}
 
-	public List<Veggies> getTopping() {
-		return topping;
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 
-	public void setTopping(ArrayList<Veggies> topping) {
-		this.topping =  topping;
+	public ArrayList<Veggies> getVeggies() {
+		return veggies;
 	}
 
-	public List<Extras> getExtras() {
+	public void setVeggies(ArrayList<Veggies> veggies) {
+		this.veggies = veggies;
+	}
+
+	public ArrayList<Extras> getExtras() {
 		return extras;
 	}
 
@@ -95,6 +110,11 @@ public class Burger extends Food implements Serializable{
 	public void setBuns(Buns buns) {
 		this.buns = buns;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Burger [order=" + order + ", veggies=" + veggies + ", extras=" + extras + ", cheese=" + cheese
+				+ ", protein=" + protein + ", buns=" + buns + "]";
+	}
+
 }
