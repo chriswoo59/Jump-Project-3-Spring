@@ -6,10 +6,6 @@ import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -29,8 +25,11 @@ public class Burger extends Food implements Serializable {
 		White, Wheat, Lettuce, GlutenFree
 	};
 
+	@Column
 	private ArrayList<Extras> extras;
+	@Column
 	private Patty patty;
+	@Column
 	private Buns buns;
 
 	public Burger() {
