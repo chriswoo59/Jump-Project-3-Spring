@@ -55,14 +55,16 @@ public class OrdersService {
 		if(food.isPresent()) {
 			food.get().setOrder(findOrderById(orderId));
 			frepo.save(food.get());
-			findOrderById(orderId).setQty(findOrderById(orderId).getQty()+1);
+			Orders found =findOrderById(orderId);
+			found.setQty(findOrderById(orderId).getQty()+1);
+			repo.save(found);
 			return food.get();
 		}
 		throw new ResourceNotFoundException("Food",foodId);
 	}
-	public Orders addUserToOrder(Long userId, Long orderId) throws ResourceNotFoundException {
+	public Orders addUserToOrder(String username, Long orderId) throws ResourceNotFoundException {
 		
-		Optional<User> user = urepo.findById(userId);
+		Optional<User> user = urepo.findByUsername(username);
 		
 		if(user.isPresent()) {
 			Orders order = findOrderById(orderId);
@@ -70,7 +72,7 @@ public class OrdersService {
 			repo.save(order);
 			return order;
 		}
-		throw new ResourceNotFoundException("User",userId);
+		throw new ResourceNotFoundException("User",username);
 	}
 	
 	public Orders addOrders(Orders order) {
