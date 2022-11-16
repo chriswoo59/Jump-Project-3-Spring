@@ -4,12 +4,6 @@ import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import org.springframework.stereotype.Component;
 
 @Entity
 public class Pizza extends Food {
@@ -24,7 +18,9 @@ public class Pizza extends Food {
 		HandTossed, Pan, NewYork, DeepDish, StuffedCrust
 	};
 
+	@Column
 	private ArrayList<Meats> meat = new ArrayList<>();
+	@Column
 	private Crust crust;
 
 	public Pizza() {
