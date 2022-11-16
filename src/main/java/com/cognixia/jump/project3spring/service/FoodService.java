@@ -78,4 +78,38 @@ public class FoodService {
 		}
 		throw new ResourceNotFoundException("Pizza", id);
 	}
+	
+	public Burger  updateBurger( Burger burger, int burgerid) 
+	{
+		list.stream().map(Burger-> {
+			if(Burger.getId()==burgerId)
+			{
+				Burger.setVeggies(burger.getVeggies());
+				Burger.setCheese(burger.getCheese());
+				Burger.setExtras(burger.getExtras());
+				Burger.setBuns(burger.getBuns());
+				Burger.setProtein(burger.getProtein());
+			}
+			
+		});
+		return burger;
+	}
+
+	public Pizza updatePizza( Pizza pizza, int pizzaid) 
+	{
+		list.stream().map(Pizza-> {
+			if(Pizza.getId()==pizzaId)
+			{
+				Pizza.setVeggies(pizza.getVeggies());
+				Pizza.setMeats(pizza.getMeats());
+				Pizza.setCrust(pizza.getCrust());
+			}
+		});
+	
+		
+		return pizza;
+	}
+
+
+	
 }
