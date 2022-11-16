@@ -2,7 +2,7 @@ package com.cognixia.jump.project3spring.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.stereotype.Component;
 
 @Entity
 public class Burger extends Food implements Serializable {
@@ -77,5 +76,6 @@ public class Burger extends Food implements Serializable {
 	public String toString() {
 		return "Burger [extras=" + extras + ", patty=" + patty + ", buns=" + buns + "]";
 	}
+
 
 }

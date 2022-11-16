@@ -27,13 +27,14 @@ public class FoodController {
 
 	@Autowired
 	FoodService service;
-	
+
 	@GetMapping("/all")
 	// Returns a combined list of both burgers and pizzas, in that order
 	public ResponseEntity<?> getAllFood() {
 		List<Food> foods = service.getAllFood();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(foods);
+
 	}
 	
 	@GetMapping("/burgers")

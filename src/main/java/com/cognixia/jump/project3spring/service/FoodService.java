@@ -43,6 +43,14 @@ public class FoodService {
 	public List<Pizza> getAllPizzas() {
 		return prepo.findAll();
 	}
+	public List<Food> getAllFood(){
+		List<Food> foodlist=new ArrayList<>();
+		foodlist.addAll(brepo.findAll());
+		foodlist.addAll(prepo.findAll());
+		
+		return foodlist;
+		
+	}
 
 	public Burger createBurger(Burger burger) {
 		return brepo.save(burger);
