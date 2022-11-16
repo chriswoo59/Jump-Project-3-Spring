@@ -35,6 +35,18 @@ public class OrdersController {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(created);
 	}
+	@GetMapping("/orders/{id}/status")
+	public ResponseEntity<?> checkStatusOrdersById(@PathVariable Long id) throws ResourceNotFoundException {
+		boolean status = service.checkStatus(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(status);
+	}
+	@PostMapping("/orders/{id}/status")
+	public ResponseEntity<?> changeStatusOrdersById(@PathVariable Long id) throws ResourceNotFoundException {
+		Orders status = service.changeStatus(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(status);
+	}
 	
 	@DeleteMapping("/orders/{id}")
 	public ResponseEntity<?> deleteOrdersById(@PathVariable Long id) throws ResourceNotFoundException {

@@ -27,7 +27,7 @@ public class OrdersService {
 		throw new ResourceNotFoundException("Order", id);
 	}
 	
-	public Orders changesStatus(Long id) throws ResourceNotFoundException{
+	public Orders changeStatus(Long id) throws ResourceNotFoundException{
 		Orders found=findOrderById(id);
 		found.setCompleted(!found.isCompleted());
 		repo.save(found);
