@@ -22,11 +22,19 @@ import com.cognixia.jump.project3spring.model.Pizza;
 import com.cognixia.jump.project3spring.service.FoodService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/food")
 public class FoodController {
 
 	@Autowired
 	FoodService service;
+	
+	@GetMapping("/all")
+	// Returns a combined list of both burgers and pizzas, in that order
+	public ResponseEntity<?> getAllFood() {
+		List<Food> foods = service.getAllFood();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(foods);
+	}
 	
 	@GetMapping("/burgers")
 	public ResponseEntity<?> getAllBurgers() {
@@ -35,7 +43,7 @@ public class FoodController {
 		return ResponseEntity.status(HttpStatus.OK).body(burgers);
 	}
 	
-	@GetMapping("/pizza")
+	@GetMapping("/pizzas")
 	public ResponseEntity<?> getAllPizzas() {
 		List<Pizza> pizzas = service.getAllPizzas();
 		
@@ -61,16 +69,23 @@ public class FoodController {
 //		
 //	}
 	
-	@DeleteMapping("/burger/{id}")
-	public ResponseEntity<?> deleteBurgerById(@PathVariable Long id) throws ResourceNotFoundException {
-		Burger deleted = service.deleteBurger(id);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(deleted);
-	}
+//	@DeleteMapping("/burger/{id}")
+//	public ResponseEntity<?> deleteBurgerById(@PathVariable Long id) throws ResourceNotFoundException {
+//		Burger deleted = service.deleteBurger(id);
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(deleted);
+//	}
+//	
+//	@DeleteMapping("/pizza/{id}")
+//	public ResponseEntity<?> deletePizzaById(@PathVariable Long id) throws ResourceNotFoundException {
+//		Pizza deleted = service.deletePizza(id);
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(deleted);
+//	}
 	
-	@DeleteMapping("/pizza/{id}")
-	public ResponseEntity<?> deletePizzaById(@PathVariable Long id) throws ResourceNotFoundException {
-		Pizza deleted = service.deletePizza(id);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteFoodById(@PathVariable Long id) throws ResourceNotFoundException {
+		Food deleted = service.deleteFood(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(deleted);
 	}
