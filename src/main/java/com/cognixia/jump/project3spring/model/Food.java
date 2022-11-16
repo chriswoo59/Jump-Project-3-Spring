@@ -6,8 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.ManyToOne;
 
+import org.springframework.stereotype.Component;
 
+@Inheritance
+@Entity
 public abstract class Food implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,24 +21,41 @@ public abstract class Food implements Serializable {
 	@Column(name = "food_id")
 	private Long id;
 
-	@Column(nullable = false)
-	private String type;
+	@Column(insertable = false, updatable = false)
+	private String dtype;
 
 	@Column(nullable = false)
 	private double cost;
 
+	enum Veggies {
+		Lettuce, Onions, Pickles, Tomato, Jalapeños, Mushrooms, Pinapple, Olives, GreenPeppers
+	};
 
-	public Food(Long id, String type, double cost) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.cost = cost;
+	enum Cheese {
+		American, Blue, Cheddar, Swiss, Provolone, PepperJack, RedDragon, Mozzarella
+	};
+	
+	enum Sauce {
+		Ketchup, BBQ, Ranch, Hot
 	}
 
-	public Food() {
-		this.id = -1L;
-		this.type = "blank";
-		this.cost = 5.0;
+	private ArrayList<Veggies> veggies;
+	private Cheese cheese;
+	private Sauce sauce;
+
+	@ManyToOne
+	private Orders order;
+	
+
+	public Food(Long id, double cost, ArrayList<Veggies> veggies, Cheese cheese, Sauce sauce,
+			Orders order) {
+		super();
+		this.id = id;
+		this.cost = cost;
+		this.veggies = veggies;
+		this.cheese = cheese;
+		this.sauce = sauce;
+		this.order = order;
 	}
 
 	public Long getId() {
@@ -44,12 +66,12 @@ public abstract class Food implements Serializable {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getDtype() {
+		return dtype;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setDtype(String dtype) {
+		this.dtype = dtype;
 	}
 
 	public double getCost() {
@@ -60,9 +82,42 @@ public abstract class Food implements Serializable {
 		this.cost = cost;
 	}
 
+	public ArrayList<Veggies> getVeggies() {
+		return veggies;
+	}
+
+	public void setVeggies(ArrayList<Veggies> veggies) {
+		this.veggies = veggies;
+	}
+
+	public Cheese getCheese() {
+		return cheese;
+	}
+
+	public void setCheese(Cheese cheese) {
+		this.cheese = cheese;
+	}
+
+	public Sauce getSauce() {
+		return sauce;
+	}
+
+	public void setSauce(Sauce sauce) {
+		this.sauce = sauce;
+	}
+
+	public Orders getOrder() {
+		return order;
+	}
+
+	public void setOrder(Orders order) {
+		this.order = order;
+	}
+
 	@Override
 	public String toString() {
-		return "Food [id=" + id + ", type=" + type + ", cost=" + cost + "]";
+		return "Food [id=" + id + ", dtype=" + dtype + ", cost=" + cost + ", veggies=" + veggies + ", cheese=" + cheese
+				+ ", sauce=" + sauce + ", order=" + order + "]";
 	}
 
 }

@@ -16,25 +16,12 @@ import javax.persistence.ManyToOne;
 public class Burger extends Food implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "food_id")
-	private Long id;
-
-	private enum Veggies {
-		Lettuce, Onions, Tomato, Pickles, Jalapeños
-	};
-
-	private enum Cheese {
-		American, Blue, Cheddar, Swiss, PepperJack, RedDragon
-	};
 
 	private enum Extras {
 		Bacon, FriedEgg, Avocado
 	};
 
-	private enum Protein {
+	private enum Patty {
 		Single, Double, Turkey, BlackBean
 	};
 
@@ -42,40 +29,23 @@ public class Burger extends Food implements Serializable {
 		White, Wheat, Lettuce, GlutenFree
 	};
 
-	@ManyToOne
-	private Orders order;
-
-	private ArrayList<Veggies> veggies;
 	private ArrayList<Extras> extras;
-	private Cheese cheese;
-	private Protein protein;
+	private Patty patty;
 	private Buns buns;
 
-	public Burger(Long id, String type, double cost, Orders order, ArrayList<Veggies> veggies, ArrayList<Extras> extras,
-			Cheese cheese, Protein protein, Buns buns) {
-		super(id, type, cost);
-		this.order = order;
-		this.veggies = veggies;
+	public Burger() {
+		super(-1L, 5.0, new ArrayList<>(), Cheese.American, null, null);
+		this.extras = new ArrayList<>();
+		this.patty = Patty.Single;
+		this.buns = Buns.Wheat;
+	}
+
+	public Burger(Long id, double cost, ArrayList<Veggies> veggies, Cheese cheese, Sauce sauce, Orders order,
+			ArrayList<Extras> extras, Patty patty, Buns buns) {
+		super(id, cost, veggies, cheese, sauce, order);
 		this.extras = extras;
-		this.cheese = cheese;
-		this.protein = protein;
+		this.patty = patty;
 		this.buns = buns;
-	}
-
-	public Orders getOrder() {
-		return order;
-	}
-
-	public void setOrder(Orders order) {
-		this.order = order;
-	}
-
-	public ArrayList<Veggies> getVeggies() {
-		return veggies;
-	}
-
-	public void setVeggies(ArrayList<Veggies> veggies) {
-		this.veggies = veggies;
 	}
 
 	public ArrayList<Extras> getExtras() {
@@ -86,20 +56,12 @@ public class Burger extends Food implements Serializable {
 		this.extras = extras;
 	}
 
-	public Cheese getCheese() {
-		return cheese;
+	public Patty getPatty() {
+		return patty;
 	}
 
-	public void setCheese(Cheese cheese) {
-		this.cheese = cheese;
-	}
-
-	public Protein getProtein() {
-		return protein;
-	}
-
-	public void setProtein(Protein protein) {
-		this.protein = protein;
+	public void setPatty(Patty patty) {
+		this.patty = patty;
 	}
 
 	public Buns getBuns() {
@@ -112,8 +74,7 @@ public class Burger extends Food implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Burger [order=" + order + ", veggies=" + veggies + ", extras=" + extras + ", cheese=" + cheese
-				+ ", protein=" + protein + ", buns=" + buns + "]";
+		return "Burger [extras=" + extras + ", patty=" + patty + ", buns=" + buns + "]";
 	}
 
 
