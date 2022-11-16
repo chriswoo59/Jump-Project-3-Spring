@@ -38,15 +38,24 @@ public class SecurityConfiguration {
 
 		http.csrf().disable()
 			.authorizeRequests()
-			// ANY USER
+			// ANY REQUESTER
 			.antMatchers("/swagger-ui/**").permitAll()		// Anyone can view docs
 			.antMatchers("/v3/**").permitAll()
 			.antMatchers("/docs").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/users").permitAll()	// Anyone can create a new user
 			.antMatchers("/authenticate").permitAll()				// Anyone can create a JWT without needing a JWT first
-			// ADMIN
+			// ADMIN ONLY
+			// USERS
+			.antMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
 			
-			//.anyRequest().authenticated() 							// The other requests require a user account to access
+			// FOOD
+			.antMatchers(HttpMethod.DELETE, "/api/food/{id}").hasRole("ADMIN")
+			
+			//ORDERS
+			.antMatchers(HttpMethod.POST, "/api/orders/{id}/status").hasAnyRole("EMPLOYEE", "ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/orders/{id}").hasRole("ADMIN")
+			
+			.anyRequest().authenticated() 							// The other requests require a user account to access
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Tells Spring security NOT to create sessions/session tokens
 
@@ -54,7 +63,7 @@ public class SecurityConfiguration {
 		// However, we will set it up, that our JWT filter gets checked first, or else the authentication will fail,
 		// since Spring security won't know where to find the username or password.
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-		
+
 		return http.build();
 	}
 

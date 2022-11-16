@@ -1,6 +1,6 @@
 package com.cognixia.jump.project3spring.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +28,6 @@ public class FoodService {
 	PizzaRepository prepo;
 	
 	public List<Food> getAllFood() {
-		List<Food> foods = new ArrayList<Food>();
-		foods.addAll(brepo.findAll());
-		foods.addAll(prepo.findAll());
-				
-		//return foods;
 		return repo.findAll();
 	}
 	

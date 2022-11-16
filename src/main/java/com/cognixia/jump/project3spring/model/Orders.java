@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -32,6 +33,9 @@ public class Orders implements Serializable{
 	
 	@Column(nullable = false)
 	private int qty;
+	
+	@ManyToOne
+	private User user;
 	
 	public Orders() {
 		this.id = -1L;
@@ -80,9 +84,18 @@ public class Orders implements Serializable{
 		this.qty = qty;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", order_date=" + order_date + ", completed=" + completed + ", qty=" + qty + "]";
+		return "Orders [id=" + id + ", order_date=" + order_date + ", completed=" + completed + ", qty=" + qty
+				+ ", user=" + user + "]";
 	}
 	
 	
