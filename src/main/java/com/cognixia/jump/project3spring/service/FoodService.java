@@ -28,11 +28,6 @@ public class FoodService {
 	PizzaRepository prepo;
 	
 	public List<Food> getAllFood() {
-		List<Food> foods = new ArrayList<Food>();
-		foods.addAll(brepo.findAll());
-		foods.addAll(prepo.findAll());
-				
-		//return foods;
 		return repo.findAll();
 	}
 	
@@ -42,14 +37,6 @@ public class FoodService {
 	
 	public List<Pizza> getAllPizzas() {
 		return prepo.findAll();
-	}
-	public List<Food> getAllFood(){
-		List<Food> foodlist=new ArrayList<>();
-		foodlist.addAll(brepo.findAll());
-		foodlist.addAll(prepo.findAll());
-		
-		return foodlist;
-		
 	}
 
 	public Burger createBurger(Burger burger) {
