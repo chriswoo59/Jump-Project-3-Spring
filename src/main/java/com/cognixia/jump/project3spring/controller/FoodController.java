@@ -28,6 +28,13 @@ public class FoodController {
 	@Autowired
 	FoodService service;
 	
+	@GetMapping("/food")
+	public ResponseEntity<?> getAllFood(){
+		List<Food> food = service.getAllFood();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(food);
+	}
+	
 	@GetMapping("/burgers")
 	public ResponseEntity<?> getAllBurgers() {
 		List<Burger> burgers = service.getAllBurgers();
