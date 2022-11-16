@@ -55,9 +55,6 @@ public class User implements Serializable {
 	@Column(columnDefinition = "boolean default true")
 	private boolean enabled;
 
-	@OneToMany(mappedBy = "id", targetEntity = Orders.class, fetch= FetchType.EAGER)
-//	@JsonIgnoreProperties("user")
-	private Set<Orders> orders = new HashSet<>();
 
 	public User() {
 		this.id = -1L;
@@ -67,11 +64,9 @@ public class User implements Serializable {
 		this.dob = new Date();
 		this.role = Role.ROLE_ADMIN;
 		this.enabled = true;
-		this.orders = null;
 	}
 
-	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled,
-			Set<Orders> orders) {
+	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -80,7 +75,6 @@ public class User implements Serializable {
 		this.dob = dob;
 		this.role = role;
 		this.enabled = enabled;
-		this.orders = orders;
 	}
 
 	public Long getId() {
@@ -139,21 +133,10 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<Orders> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Orders> orders) {
-		this.orders = orders;
-	}
-	
-	public void addOrder(Orders order) {
-		this.orders.add(order);
-	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", dob="
-				+ dob + ", role=" + role + ", enabled=" + enabled + ", orders=" + orders + "]";
+				+ dob + ", role=" + role + ", enabled=" + enabled +"]";
 	}
 }

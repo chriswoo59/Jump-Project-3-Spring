@@ -13,42 +13,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.project3spring.exception.ResourceNotFoundException;
+import com.cognixia.jump.project3spring.model.Food;
 import com.cognixia.jump.project3spring.model.Orders;
 import com.cognixia.jump.project3spring.service.OrdersService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/orders")
 public class OrdersController {
 
 	OrdersService service;
 	
-	@GetMapping("/orders")
-	public ResponseEntity<?> getAllFood(){
+	@GetMapping("/all")
+	public ResponseEntity<?> getAllOrder(){
 		List<Orders> order = service.getAllOrders();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(order);
 	}
 	
-	@PostMapping("/orders")
+	@PostMapping("/order")
 	public ResponseEntity<?> createOrder(@RequestBody Orders order) {
 		Orders created = service.addOrders(order);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(created);
 	}
-	@GetMapping("/orders/{id}/status")
+	@GetMapping("/status/{id}")
 	public ResponseEntity<?> checkStatusOrdersById(@PathVariable Long id) throws ResourceNotFoundException {
 		boolean status = service.checkStatus(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(status);
 	}
-	@PostMapping("/orders/{id}/status")
+	@PostMapping("/status/{id}")
 	public ResponseEntity<?> changeStatusOrdersById(@PathVariable Long id) throws ResourceNotFoundException {
 		Orders status = service.changeStatus(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(status);
 	}
+	@PostMapping("/user/{userId}/{orderId}")
+	public ResponseEntity<?> addUser(@PathVariable Long userId,@PathVariable Long orderId) throws ResourceNotFoundException {
+		Orders order = service.addUserToOrder(userId,orderId);		
+		return ResponseEntity.status(HttpStatus.OK).body(order);
+	}
+	@PostMapping("/food/{orderId}/{foodId}")
+	public ResponseEntity<?> addFood(@PathVariable Long orderId,@PathVariable Long foodId) throws ResourceNotFoundException {
+		Food food = service.addOrderToFood(orderId,foodId);		
+		return ResponseEntity.status(HttpStatus.OK).body(food);
+	}
 	
-	@DeleteMapping("/orders/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteOrdersById(@PathVariable Long id) throws ResourceNotFoundException {
 		Orders deleted = service.deleteOrders(id);
 		
