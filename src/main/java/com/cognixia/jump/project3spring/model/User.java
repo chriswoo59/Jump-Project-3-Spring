@@ -61,7 +61,7 @@ public class User implements Serializable {
 		this.enabled = true;
 	}
 
-	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled) {
+	public User(Long id, String username, String password, String email, Role role, boolean enabled) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -122,7 +122,6 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", dob="
-				+ dob + ", role=" + role + ", enabled=" + enabled +"]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email +", role=" + role + ", enabled=" + enabled +"]";
 	}
 }
