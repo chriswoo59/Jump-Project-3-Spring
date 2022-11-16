@@ -9,45 +9,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.stereotype.Component;
+
 @Entity
 public class Pizza extends Food {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "food_id")
-	private Long id;
-	@ManyToOne
-	private Orders order;
-	
-	
-	private enum Veggies{Onions,Tomato,Jalapeños,Mushrooms,Pinapple,Olives,GreenPeppers};
-	private enum Meats{Pepperoni,Sausage,Bacon,Meatball,Ham,Chicken,Beef,Pork};
-	private enum Crust{HandTossed,Pan,NewYork,DeepDish,StuffedCrust};
-	
-	private ArrayList<Veggies> veg = new ArrayList<>();
-	private ArrayList<Meats> meat= new ArrayList<>();
+
+	private enum Meats {
+		Pepperoni, Sausage, Bacon, Meatball, Ham, Chicken, Beef, Pork
+	};
+
+	private enum Crust {
+		HandTossed, Pan, NewYork, DeepDish, StuffedCrust
+	};
+
+	private ArrayList<Meats> meat = new ArrayList<>();
 	private Crust crust;
-	
-	public Pizza(Long id, double cost, boolean done, ArrayList<Veggies> veg, ArrayList<Meats> meat, Crust crust) {
-		super(id, cost, done);
-		this.veg = veg;
+
+	public Pizza() {
+		super(-1L, 8.00, new ArrayList<>(), Cheese.Mozzarella, null, null);
+		this.meat = new ArrayList<>();
+		this.crust = Crust.HandTossed;
+	}
+
+	public Pizza(Long id, double cost, ArrayList<Veggies> veggies, Cheese cheese, Sauce sauce, Orders order,
+			ArrayList<Meats> meat, Crust crust) {
+		super(id, cost, veggies, cheese, sauce, order);
 		this.meat = meat;
 		this.crust = crust;
-	}
-
-	@Override
-	public String toString() {
-		return "Pizza [veg=" + veg + ", meat=" + meat + ", crust=" + crust + "]";
-	}
-
-	public ArrayList<Veggies> getVeg() {
-		return veg;
-	}
-
-	public void setVeg(ArrayList<Veggies> veg) {
-		this.veg = veg;
 	}
 
 	public ArrayList<Meats> getMeat() {
@@ -65,5 +55,10 @@ public class Pizza extends Food {
 	public void setCrust(Crust crust) {
 		this.crust = crust;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Pizza [meat=" + meat + ", crust=" + crust + "]";
+	}
+
 }
