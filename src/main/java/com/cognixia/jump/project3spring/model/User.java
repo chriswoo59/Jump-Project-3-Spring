@@ -50,7 +50,9 @@ public class User implements Serializable {
 
 	@Column(columnDefinition = "boolean default true")
 	private boolean enabled;
-
+	
+	@OneToMany(mappedBy = "user", targetEntity= Orders.class)
+	private Set<Orders> orders = new HashSet<>();
 
 	public User() {
 		this.id = -1L;

@@ -46,6 +46,13 @@ public class FoodService {
 	public Pizza createPizza(Pizza pizza) {
 		return prepo.save(pizza);
 	}
+	
+	public List<Food> findCostAbove(double cost){
+		
+		return repo.findFoodCostMoreThan(cost);
+	}
+	
+	
 
 	public Burger deleteBurger(Long id) throws ResourceNotFoundException {
 		Optional<Burger> found = brepo.findById(id);
@@ -72,5 +79,9 @@ public class FoodService {
 			return found.get();
 		}
 		throw new ResourceNotFoundException("Pizza", id);
+	}
+
+	public List<Food> findByOrders(long id) {
+		return repo.findByOrder(id);
 	}
 }
