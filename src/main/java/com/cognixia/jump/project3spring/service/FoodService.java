@@ -52,6 +52,14 @@ public class FoodService {
 		return repo.findFoodCostMoreThan(cost);
 	}
 	
+	public Burger updateBurger(Burger updateBurger) {
+		return brepo.save(updateBurger);
+	}
+	
+	public Pizza updatePizza(Pizza updatePizza) {
+		return prepo.save(updatePizza);
+	}
+	
 	
 
 	public Burger deleteBurger(Long id) throws ResourceNotFoundException {
