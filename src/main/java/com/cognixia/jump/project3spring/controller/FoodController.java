@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -107,19 +108,19 @@ public class FoodController {
 		return ResponseEntity.status(HttpStatus.OK).body(deleted);
 	}
 	
-	@PutMapping("/burger/{food_id}")
-	public ResponseEntity<?> updateBurgerById(@PathVariable Long id) throws ResourceNotFoundException {
-		Burger updated = service.updateBurger(id);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(updated);
-	}
-	
-	@PutMapping("/pizza/{food_id}")
-	public ResponseEntity<?> updatePizzaById(@PathVariable Long id) throws ResourceNotFoundException {
-		Pizza updated = service.updatePizza(id);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(updated);
-	}
+//	@PutMapping("/burger/{food_id}")
+//	public ResponseEntity<?> updateBurgerById(@PathVariable Long id) throws ResourceNotFoundException {
+//		Burger updated = service.updateBurger(id);
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(updated);
+//	}
+//	
+//	@PutMapping("/pizza/{food_id}")
+//	public ResponseEntity<?> updatePizzaById(@PathVariable Long id) throws ResourceNotFoundException {
+//		Pizza updated = service.updatePizza(id);
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(updated);
+//	}
 	
 	
 }
