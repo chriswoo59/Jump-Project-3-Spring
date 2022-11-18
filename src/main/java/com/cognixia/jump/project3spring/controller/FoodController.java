@@ -36,6 +36,22 @@ public class FoodController {
 		return ResponseEntity.status(HttpStatus.OK).body(foods);
 
 	}
+	@GetMapping("/cost/{cost}")
+	public ResponseEntity<?> getFoodByCostMore(@PathVariable double cost) 
+	{
+		List<Food> foods = service.findCostAbove(cost);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(foods);
+	}
+	
+	@GetMapping("/order/{id}")
+	public ResponseEntity<?> getFoodByOrder(@PathVariable long id) 
+	{
+		List<Food> foods = service.findByOrders(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(foods);
+	}
+	
 	
 	@GetMapping("/burgers")
 	public ResponseEntity<?> getAllBurgers() {

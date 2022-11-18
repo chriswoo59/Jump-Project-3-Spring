@@ -2,6 +2,7 @@ package com.cognixia.jump.project3spring.exception;
 
 import java.util.Date;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,6 +21,22 @@ public class GlobalExceptionHandler {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 
 		return ResponseEntity.status(404).body(errorDetails);
+	}
+
+	@ExceptionHandler(DuplicateResourceException.class)
+	public ResponseEntity<?> duplicateResource(DuplicateResourceException ex, WebRequest request) {
+
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails);
+	}
+
+	@ExceptionHandler(AdminOnlyException.class)
+	public ResponseEntity<?> adminOnly(AdminOnlyException ex, WebRequest request) {
+
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDetails);
 	}
 
 	// Validation exception thrown when data doesn't fit model-variable validation annotations

@@ -2,6 +2,8 @@ package com.cognixia.jump.project3spring.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 
 
@@ -36,6 +40,9 @@ public class Orders implements Serializable{
 	
 	@ManyToOne
 	private User user;
+	
+	@OneToMany(mappedBy = "order", targetEntity= Food.class)
+	private Set<Food> food = new HashSet<>();
 	
 	public Orders() {
 		this.id = -1L;
@@ -95,7 +102,7 @@ public class Orders implements Serializable{
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", order_date=" + order_date + ", completed=" + completed + ", qty=" + qty
-				+ ", user=" + user + "]";
+				+ ", user=" + user + ", food=" + food + "]";
 	}
 	
 	
