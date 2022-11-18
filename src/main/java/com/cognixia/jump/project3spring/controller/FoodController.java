@@ -106,4 +106,20 @@ public class FoodController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(deleted);
 	}
+	
+	@PutMapping("/burger/{food_id}")
+	public ResponseEntity<?> updateBurgerById(@PathVariable Long id) throws ResourceNotFoundException {
+		Burger updated = service.updateBurger(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(updated);
+	}
+	
+	@PutMapping("/pizza/{food_id}")
+	public ResponseEntity<?> updatePizzaById(@PathVariable Long id) throws ResourceNotFoundException {
+		Pizza updated = service.updatePizza(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(updated);
+	}
+	
+	
 }
